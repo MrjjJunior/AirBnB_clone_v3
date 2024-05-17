@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-''' index '''
+''' index file that helps create an endpoint '''
 from api.v1.views import app_views
 from flask import jsonify
 
