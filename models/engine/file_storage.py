@@ -17,7 +17,9 @@ classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
 
 
 class FileStorage:
-    """serializes instances to a JSON file & deserializes back to instances"""
+    """
+    serializes instances to a JSON file & deserializes back to instances
+    """
 
     # string - path to the JSON file
     __file_path = "file.json"
@@ -35,7 +37,9 @@ class FileStorage:
         return self.__objects
 
     def new(self, obj):
-        """sets in __objects the obj with key <obj class name>.id"""
+        """
+        sets in __objects the obj with key <obj class name>.id
+        """
         if obj is not None:
             key = obj.__class__.__name__ + "." + obj.id
             self.__objects[key] = obj
@@ -55,7 +59,7 @@ class FileStorage:
                 jo = json.load(f)
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except:
+        except Exception:
             pass
 
     def delete(self, obj=None):
@@ -66,22 +70,30 @@ class FileStorage:
                 del self.__objects[key]
 
     def close(self):
-        """call reload() method for deserializing the JSON file to objects"""
+        """
+        call reload() method for deserializing
+        the JSON file to objects
+        """
         self.reload()
 
     def get(self, cls, id):
         """
-        Retrieves an object based on its class and ID from the file storage.
+        Retrieves an object based on its class and
+        ID from the file storage.
         """
         key = "{}.{}".format(cls.__name__, id)
         return self.__objects.get(key, None)
 
     def count(self, cls=None):
         """
-        Counts the number of objects in storage matching the given class.
+        Counts the number of objects in storage
+        matching the given class.
         """
+        insta = isinstance(obj, cls)
         if cls:
-            count = sum(1 for obj in self.__objects.values() if isinstance(obj, cls))
+            count = sum(1 for obj in self.__object.vales() if insta)
+#   count = sum(1 for obj in self.__objects.values()
+#           if isinstance(obj, cls))
         else:
             count = len(self.__objects)
         return count
