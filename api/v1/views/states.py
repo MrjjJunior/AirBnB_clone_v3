@@ -1,4 +1,4 @@
-#!/user/bin/python3
+#!/usr/bin/python3
 ''' RESTful API for class State '''
 from flask import Flask, jsonify, abort, request
 from models import storage
