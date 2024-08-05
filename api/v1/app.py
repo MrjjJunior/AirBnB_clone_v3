@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 ''' Creating a Flask application '''
-from flask import Flask
+from flask import Flask, render_template, make_response, jsonify
 from models import storage
 from api.v1.views import app_views
 
@@ -17,7 +17,7 @@ def close_db(error):
 @app.errorhandler(404)
 def not_found(error):
     ''' 404 error response '''
-    retrun make_response(jsonify({'error': "Not found"}), 404)
+    return make_response(jsonify({'error': "Not found"}), 404)
 
 
 if __name__ == "__main__":
