@@ -3,6 +3,7 @@
 from flask import Flask, render_template, make_response, jsonify
 from models import storage
 from api.v1.views import app_views
+from os import getenv
 
 app = Flask(__name__)
 
@@ -21,6 +22,6 @@ def not_found(error):
 
 
 if __name__ == "__main__":
-    HOST = getenv()
-    PORT = int(getenv())
+    HOST = getenv('HBNB_API_HOST', '0.0.0.0')
+    PORT = int(getenv('HBNB_API_PORT', 5000))
     app.run(hosts=HOST, port=PORT, threaded=True)
