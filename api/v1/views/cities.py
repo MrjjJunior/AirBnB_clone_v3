@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''  '''
+''' Python script  '''
 from flask import Flask, jsonify, abort, request
 from api.v1.views import app_views
 from models import storage, State, City
