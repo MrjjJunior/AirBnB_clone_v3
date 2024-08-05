@@ -15,6 +15,7 @@ def close_db(error):
     ''' closes database storage '''
     storage.close()
 
+
 @app.errorhandler(404)
 def not_found(error):
     ''' 404 error response '''
