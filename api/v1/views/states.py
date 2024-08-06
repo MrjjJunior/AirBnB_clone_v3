@@ -13,17 +13,17 @@ def get_state():
     return jsonify(state_list)
 
 
-@app_views.route('/state/<state_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/api/v1/states/<state_id>', methods=['GET'], strict_slashes=False)
 def get_state_id(state_id):
     ''' Return state '''
-    state = storage.get(State, state_id)
+    state = storage.get("State", state_id)
     if state is None:
         abort(404)
     return jsonify(state.to_dict())
 
 
 @app_views.route(
-    '/states/<state_id>',
+    '/api/v1/states/<state_id>',
     methods=['DELETE'], strict_slashes=False)
 def delete_state(state_id):
     ''' deletes states obj '''
@@ -55,7 +55,7 @@ def update_state(state_id):
     if not request.get_json():
         return jsonify({"error": "Not a JSON"}), 400
 
-    obj = storage.get(State, states_id)
+    obj = storage.get("State", states_id)
     if obj is None:
         abort(404)
     obj_data = request.get_json()
