@@ -19,7 +19,11 @@ def close_db(error):
 @app.errorhandler(404)
 def not_found(error):
     ''' 404 error response '''
-    return make_response(jsonify({'error': "Not found"}), 404)
+    return make_response(jsonify(
+        {
+        'error': "Not found"
+        }
+        ), 404)
 
 
 if __name__ == "__main__":
