@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+'''
 """ holds class State"""
 import models
 from models.base_model import BaseModel, Base
@@ -32,3 +33,16 @@ class State(BaseModel, Base):
                 if city.state_id == self.id:
                     city_list.append(city)
             return city_list
+'''
+from flask import jsonify, abort
+from  models.state import State
+from models import storage
+from api.v1.views import app_views
+
+
+@app_views.route('/states', strict_slashes=False)
+def get_all_states():
+    ''' gets the list pf all state objects '''
+    states = storage.all(State).values()
+    state_list = [state.to_dict() for state in states]
+    return jsonify(state_list)
