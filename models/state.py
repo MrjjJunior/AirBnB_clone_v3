@@ -46,3 +46,43 @@ def get_all_states():
     states = storage.all(State).values()
     state_list = [state.to_dict() for state in states]
     return jsonify(state_list)
+
+
+@app_views.route('/states/<state_id>', strict_slashes=False)
+def get_state(state_id):
+    ''' gets state id '''
+    state = storage.get(State, state_id)
+
+    if state:
+        return jsonsify(State, state_id)
+    else:
+        return abort(404)
+    
+
+@app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
+def delete_state(state_id):
+    ''' deletes a state '''
+    state = storage.get(State, state_id)
+    if state:
+        storage.delete(state)
+        storage.save()
+        return jsonify({}), 200
+    else:
+        abort(404)
+
+
+@app_views.route('/states', methods=['POST'], strict_slashes=False)
+def create_state():
+    ''' creates new state '''
+    if request.content_type != 'application/json':
+        return abort(404, 'Not a JSON')
+    if not request.get_json():
+        return abort(400, 'Not a JSON')
+    kwargs = request.get_json()
+
+    if 'name' not in kwargs:
+        abort(400, 'Missing name')
+
+    state = State(**kwargs)
+    state.save()
+    return jsonify(state.to_dict()), 200
